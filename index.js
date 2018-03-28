@@ -5,7 +5,7 @@ import {createStore} from 'redux'
 
 const printBoard = () => {
   const {board} = game.getState()
-  
+
   for (let r = 0; r != 3; ++r) {
     for (let c = 0; c != 3; ++c) {
       process.stdout.write(board.getIn([r, c], '_'))
@@ -23,8 +23,10 @@ const getInput = player => async () => {
     message: `${turn}'s move (row,col):`
   }])
   const [row=0, col=0] = ans.coord.split(/[,\s+]/).map(x => +x)
-  
+
   game.dispatch(move(turn, [row, col]))
+  //game.winner(game.getState().board)
+  //console.log(game.getState().board.get(1))
 }
 
 // Create the store
