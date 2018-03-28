@@ -5,6 +5,7 @@ import {createStore} from 'redux'
 
 const printBoard = () => {
   const {board} = game.getState()
+  
   for (let r = 0; r != 3; ++r) {
     for (let c = 0; c != 3; ++c) {
       process.stdout.write(board.getIn([r, c], '_'))
@@ -22,6 +23,7 @@ const getInput = player => async () => {
     message: `${turn}'s move (row,col):`
   }])
   const [row=0, col=0] = ans.coord.split(/[,\s+]/).map(x => +x)
+  
   game.dispatch(move(turn, [row, col]))
 }
 
@@ -34,6 +36,8 @@ const game = createStore(gameReducer)
 game.subscribe(printBoard)
 game.subscribe(getInput('X'))
 game.subscribe(getInput('O'))
+
+
 
 // We dispatch a dummy START action to call all our
 // subscribers the first time.
